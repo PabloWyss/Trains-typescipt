@@ -1,8 +1,10 @@
+import {CardDataDiv} from "./styles.ts";
+
 const StationBoardCard = () => {
     return (
-        <div>
-
-        </div>
+        <CardDataDiv>
+            Card data
+        </CardDataDiv>
     )
 }
 

@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import useApiRequest from "../../../hooks/useAPIRequest";
 import {StationBoardResultMainDiv, StationBoardResultsLI} from "./styles.ts";
 import type {ElementID} from "../types.ts";
+import StationBoardCard from "../stationBoardCard/stationBoardCard.tsx";
 
 type Props = {
     stationId: string | null;
@@ -74,9 +75,7 @@ const StationBoardResults = ({stationId}: Props) => {
                             </StationBoardResultMainDiv>
                             {
                                 elementClicked === index &&
-                                <div>
-                                    helo
-                                </div>
+                                <StationBoardCard/>
                             }
                         </StationBoardResultsLI>
                     );

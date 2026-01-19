@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import useApiRequest from "../../../hooks/useAPIRequest";
+import {StationBoardResultsLI} from "./styles.ts";
 
 type Props = {
     stationId: string | null;
@@ -35,18 +36,9 @@ const StationBoardResults = ({stationId}: Props) => {
                         train.stop.prognosis?.departure || train.stop.departure;
 
                     return (
-                        <li
+                        <StationBoardResultsLI
                             key={index}
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                padding: "10px 12px",
-                                borderBottom: "1px solid #eee",
-                                alignItems: "center",
-                                backgroundColor: index % 2 === 0 ? "#fafafa" : "#fff",
-                                borderRadius: "6px",
-                                marginBottom: "4px",
-                            }}
+                            $primary={index % 2 === 0}
                         >
                             <div style={{flex: 1}}>
                                 <strong style={{fontSize: "16px"}}>
@@ -66,7 +58,7 @@ const StationBoardResults = ({stationId}: Props) => {
                                     Platform: {train.stop.platform || "-"}
                                 </div>
                             </div>
-                        </li>
+                        </StationBoardResultsLI>
                     );
                 })}
             </ul>

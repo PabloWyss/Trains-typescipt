@@ -16,3 +16,8 @@ export type LocationResult = {
 export type LocationsResponse = {
     stations: LocationResult[];
 };
+
+
+export type ElementID = {
+    id: string | null
+}

@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import useApiRequest from "../../../hooks/useAPIRequest";
 import type {LocationResult, LocationsResponse} from "../types";
-import {InputUL} from "./style.ts";
+import {InputLi, InputUL} from "./style.ts";
 
 type Props = {
     value: string;
@@ -36,7 +36,6 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
                 prevInputSelected.current = false
             }
         }
-
 
 
         prevValueRef.current = value;
@@ -87,7 +86,11 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
 
     return (
         <div style={{position: "relative", width: "300px"}}>
+            <label htmlFor="location-search-input" style={{display: "block", marginBottom: "8px"}}>
+                Search for a location:
+            </label>
             <input
+                id="location-search-input"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 ref={inputRef}
@@ -99,12 +102,12 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
             {open && results.length > 0 && (
                 <InputUL>
                     {results.map((item, i) => (
-                        <li
+                        <InputLi
                             key={`${item.id}-${i}`}
                             onMouseDown={() => handleSelect(item)}
                         >
                             {item.name}
-                        </li>
+                        </InputLi>
                     ))}
                 </InputUL>
             )}

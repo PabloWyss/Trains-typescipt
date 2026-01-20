@@ -8,6 +8,33 @@ type Props = {
     stationId: string | null;
 };
 
+type ResponseData = {
+    station: {
+        id: string;
+        name: string;
+    }
+    stationboard: Array<{
+        category: string;
+        number: string;
+        to: string;
+        operator: string;
+        stop: {
+            departure: string | null;
+            prognosis: {
+                departure: string | null;
+            } | null;
+            platform: string | null;
+        };
+        passList: Array<{
+            arrival: string | null;
+            departure: string | null;
+            station: {
+                name: string | null;
+            };
+        }>;
+    }>;
+}
+
 const formatTime = (iso: string | null) => {
     if (!iso) return "--:--";
     const date = new Date(iso);
@@ -16,7 +43,13 @@ const formatTime = (iso: string | null) => {
 
 
 const StationBoardResults = ({stationId}: Props) => {
-    const {sendRequest, data, loading} = useApiRequest();
+    const {
+        sendRequest,
+        data,
+        loading
+    } = useApiRequest<ResponseData>();
+
+
     const [elementClicked, setElementClicked] = useState<ElementID>(null)
 
     useEffect(() => {
@@ -75,7 +108,7 @@ const StationBoardResults = ({stationId}: Props) => {
                             </StationBoardResultMainDiv>
                             {
                                 elementClicked === index &&
-                                <StationBoardCard/>
+                                <StationBoardCard train={train}/>
                             }
                         </StationBoardResultsLI>
                     );

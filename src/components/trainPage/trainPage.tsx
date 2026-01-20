@@ -1,15 +1,21 @@
-import {JSX} from "react";
+import {JSX, useState} from "react";
 import LocationSearchInput from "./locationSearchInput/locationsSearchInput.tsx";
 import StationBoardResults from "./stationBoardResult/stationBoardResult.tsx";
 import {useForm} from "react-hook-form";
 import type {LocationResult} from "./types.ts";
-import {Wrapper} from "./trainPageStyles.tsx";
+import {SelectionButton, SelectionButtonDiv, Title, Wrapper} from "./trainPageStyles.tsx";
 
 
 type Inputs = {
     location: string;
     selectedLocation: string | null;
 };
+
+type FeatureOption = {
+    label: string;
+    value: string;
+}
+
 
 const TrainPage: () => JSX.Element = () => {
 
@@ -19,6 +25,8 @@ const TrainPage: () => JSX.Element = () => {
             selectedLocation: null,
         },
     });
+
+    const [featureSelected, setFeatureSelected] = useState<FeatureOption>({label: "Train Departures", value: "departures"});
 
     const location = watch("location");
     const selectedLocation = watch("selectedLocation");
@@ -35,12 +43,38 @@ const TrainPage: () => JSX.Element = () => {
 
     return (
         <Wrapper>
-            <LocationSearchInput
-                value={location}
-                onChange={handleLocationChange}
-                onSelect={handleSelect}
-            />
-
+            <Title>{featureSelected.label}</Title>
+            <SelectionButtonDiv>
+                <SelectionButton
+                    $active={featureSelected.value === "departures"}
+                    onClick={() => setFeatureSelected({label: "Train Departures", value: "departures"})}
+                    disabled={featureSelected.value === "departures"}
+                >
+                    Train Departures
+                </SelectionButton>
+                <SelectionButton
+                    $active={featureSelected.value === "connections"}
+                    onClick={() => setFeatureSelected({label: "Connections", value: "connections"})}
+                    disabled={featureSelected.value === "connections"}
+                >
+                    Connections
+                </SelectionButton>
+            </SelectionButtonDiv>
+            {
+                featureSelected.value === "connections" && (
+                    <p style={{textAlign: "center", marginBottom: "20px"}}>
+                        Connections feature is coming soon!
+                    </p>
+                )
+            }
+            {
+                featureSelected.value === "departures" &&
+                <LocationSearchInput
+                    value={location}
+                    onChange={handleLocationChange}
+                    onSelect={handleSelect}
+                />
+            }
             <StationBoardResults stationId={selectedLocation}/>
         </Wrapper>
     );

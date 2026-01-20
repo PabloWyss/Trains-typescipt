@@ -7,7 +7,7 @@ export const StationBoardResultsLI = styled.li<{ $primary?: boolean; }>`
     padding: 10px 12px;
     border-bottom: 1px solid #eee;
     align-items: center;
-    background: ${props => props.$primary ? "#bbbbbb" : "white"};
+    background: ${props => props.$primary ? "#dadada" : "white"};
     border-radius: 6px;
     margin-bottom: 4px;
 `
@@ -16,4 +16,5 @@ export const StationBoardResultMainDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 `

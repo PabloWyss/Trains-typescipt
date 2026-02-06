@@ -18,6 +18,7 @@ export const ContentCard = styled.div`
     background: rgba(255, 255, 255, 0.94);
     border-radius: 1.5rem;
     padding: 2.5rem 2.25rem 2.25rem;
+    min-height: 560px;
     box-shadow:
         0 22px 45px rgba(15, 23, 42, 0.18),
         0 0 0 1px rgba(148, 163, 184, 0.16);

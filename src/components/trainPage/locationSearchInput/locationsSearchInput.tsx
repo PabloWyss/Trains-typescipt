@@ -151,11 +151,16 @@ const LocationSearchInput = ({value, onChange, onSelect, label, placeholder, wid
                 </InputUL>
             )}
 
-            {loading && (
-                <small style={{display: "block", marginTop: "4px", color: "#6b7280"}}>
-                    Searching…
-                </small>
-            )}
+            <div
+                style={{
+                    minHeight: "18px",
+                    marginTop: "4px",
+                    fontSize: "0.8rem",
+                    color: "#6b7280",
+                }}
+            >
+                {loading ? "Searching…" : ""}
+            </div>
         </div>
     );
 };

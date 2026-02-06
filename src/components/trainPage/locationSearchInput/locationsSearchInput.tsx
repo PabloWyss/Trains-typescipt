@@ -7,9 +7,12 @@ type Props = {
     value: string;
     onChange: (value: string) => void;
     onSelect: (item: LocationResult) => void;
+    label?: string;
+    placeholder?: string;
+    width?: string;
 };
 
-const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
+const LocationSearchInput = ({value, onChange, onSelect, label, placeholder, width}: Props) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const prevValueRef = useRef<string>("");
     const prevInputSelected = useRef(false)
@@ -85,9 +88,24 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
     };
 
     return (
-        <div style={{position: "relative", width: "300px"}}>
-            <label htmlFor="location-search-input" style={{display: "block", marginBottom: "8px"}}>
-                Search for a location:
+        <div
+            style={{
+                position: "relative",
+                width: width ?? "100%",
+                maxWidth: "420px",
+            }}
+        >
+            <label
+                htmlFor="location-search-input"
+                style={{
+                    display: "block",
+                    marginBottom: "6px",
+                    fontSize: "0.85rem",
+                    fontWeight: 500,
+                    color: "#4b5563",
+                }}
+            >
+                {label ?? "Search for a location"}
             </label>
             <input
                 id="location-search-input"
@@ -95,8 +113,29 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
                 onChange={(e) => onChange(e.target.value)}
                 ref={inputRef}
                 autoComplete="off"
+                placeholder={placeholder ?? "Enter a station name"}
                 onFocus={() => setInputSelected(true)}
                 onBlur={() => setInputSelected(false)}
+                style={{
+                    width: "100%",
+                    padding: "0.6rem 0.8rem",
+                    borderRadius: "999px",
+                    border: "1px solid #d1d5db",
+                    outline: "none",
+                    fontSize: "0.95rem",
+                    boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04)",
+                    transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+                }}
+                onFocusCapture={(e) => {
+                    e.currentTarget.style.borderColor = "#2563eb";
+                    e.currentTarget.style.boxShadow =
+                        "0 0 0 3px rgba(37, 99, 235, 0.15)";
+                }}
+                onBlurCapture={(e) => {
+                    e.currentTarget.style.borderColor = "#d1d5db";
+                    e.currentTarget.style.boxShadow =
+                        "0 1px 2px rgba(15, 23, 42, 0.04)";
+                }}
             />
 
             {open && results.length > 0 && (
@@ -112,7 +151,11 @@ const LocationSearchInput = ({value, onChange, onSelect}: Props) => {
                 </InputUL>
             )}
 
-            {loading && <small>Searching…</small>}
+            {loading && (
+                <small style={{display: "block", marginTop: "4px", color: "#6b7280"}}>
+                    Searching…
+                </small>
+            )}
         </div>
     );
 };
